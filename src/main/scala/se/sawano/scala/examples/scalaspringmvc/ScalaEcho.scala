@@ -16,34 +16,9 @@
 
 package se.sawano.scala.examples.scalaspringmvc
 
-import org.springframework.stereotype.Controller
-import java.text.SimpleDateFormat
-import org.springframework.web.bind.annotation._
-import java.util.Date
+import reflect.BeanProperty
 
 /**
- * Pure Scala controller.
- *
- * @author Daniel Sawano
+ * If we are using the Jackson Scala module we can remove the @BeanProperty annotations.
  */
-@RequestMapping(Array("/scala"))
-@Controller
-class ScalaController {
-
-  @RequestMapping(Array("/ping"))
-  @ResponseBody
-  def ping(): String = {
-    "pong";
-  }
-
-  @RequestMapping(Array("/echo"))
-  @ResponseBody
-  def echo(name: String): ScalaEcho = {
-    ScalaEcho(name, weekDay())
-  }
-
-  protected def weekDay(): String = {
-    new SimpleDateFormat("E").format(new Date())
-  }
-
-}
+case class ScalaEcho(@BeanProperty val name: String, @BeanProperty val weekDay: String)

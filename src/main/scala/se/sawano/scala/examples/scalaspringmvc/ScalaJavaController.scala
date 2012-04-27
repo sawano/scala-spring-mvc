@@ -17,6 +17,8 @@
 package se.sawano.scala.examples.scalaspringmvc
 
 import org.springframework.stereotype.Controller
+import java.text.SimpleDateFormat
+import java.util.Date
 import org.springframework.web.bind.annotation._
 
 /**
@@ -32,6 +34,16 @@ class ScalaJavaController {
   @ResponseBody
   def ping(): String = {
     "pong";
+  }
+
+  @RequestMapping(Array("/echo"))
+  @ResponseBody
+  def echo(name: String): JavaEcho = {
+    new JavaEcho(name, weekDay())
+  }
+
+  protected def weekDay(): String = {
+    new SimpleDateFormat("E").format(new Date())
   }
 
 }

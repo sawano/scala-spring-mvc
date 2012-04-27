@@ -18,7 +18,11 @@ package se.sawano.scala.examples.scalaspringmvc;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Java controller using Scala classes.
@@ -33,6 +37,16 @@ public class JavaScalaController {
     @ResponseBody
     public String ping() {
         return "pong";
+    }
+
+    @RequestMapping("/echo")
+    @ResponseBody
+    public ScalaEcho echo(@RequestParam String name) {
+        return new ScalaEcho(name, getWeekDay());
+    }
+
+    String getWeekDay() {
+        return new SimpleDateFormat("E").format(new Date());
     }
 
 }

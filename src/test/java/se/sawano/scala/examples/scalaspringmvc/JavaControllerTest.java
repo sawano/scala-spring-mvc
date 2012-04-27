@@ -18,10 +18,16 @@ package se.sawano.scala.examples.scalaspringmvc;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 
 public class JavaControllerTest {
+    Logger logger = LoggerFactory.getLogger(getClass());
     JavaController controller;
 
     @Before
@@ -35,4 +41,13 @@ public class JavaControllerTest {
         assertEquals("pong", answer);
     }
 
+    @Test
+    public void echoShouldEchoNameAndWeekDay() throws Exception {
+        String weekDay = new SimpleDateFormat("E").format(new Date());
+        JavaEcho echo = controller.echo("Daniel");
+
+        logger.debug("Echos is: {}", echo);
+        assertEquals("Daniel", echo.getName());
+        assertEquals(weekDay, echo.getWeekDay());
+    }
 }

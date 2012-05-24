@@ -14,25 +14,20 @@
  *    limitations under the License.
  */
 
-package se.sawano.scala.examples.scalaspringmvc;
+package se.sawano.scala.examples.scalaspringmvc
 
-import org.junit.Before;
-import org.junit.Test;
+import java.lang.Integer
+import javax.validation.constraints.{NotNull, Min}
 
-import static org.junit.Assert.assertEquals;
+/**
+ * If we are not using the Jackson Scala module we need to add the JSON annotations just as we did with
+ * the immutable POJO.
+ */
+case class ScalaIndata(val name: String, val age: Integer) {
 
+  @NotNull
+  def getName() = name
 
-public class JavaScalaControllerTest {
-    private JavaScalaController controller;
-
-    @Before
-    public void setUp() throws Exception {
-        controller = new JavaScalaController();
-    }
-
-    @Test
-    public void pingShouldReturnPong() throws Exception {
-        String answer = controller.ping();
-        assertEquals("pong", answer);
-    }
+  @Min(1)
+  def getAge() = age
 }

@@ -16,23 +16,36 @@
 
 package se.sawano.scala.examples.scalaspringmvc;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.codehaus.jackson.annotate.JsonProperty;
 
-import static org.junit.Assert.assertEquals;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
+public class JavaIndata {
 
-public class JavaScalaControllerTest {
-    private JavaScalaController controller;
+    @NotNull
+    private final String name;
+    @Min(1)
+    private final Integer age;
 
-    @Before
-    public void setUp() throws Exception {
-        controller = new JavaScalaController();
+    public JavaIndata(@JsonProperty("name") String name, @JsonProperty("age") Integer age) {
+        this.name = name;
+        this.age = age;
     }
 
-    @Test
-    public void pingShouldReturnPong() throws Exception {
-        String answer = controller.ping();
-        assertEquals("pong", answer);
+    public String getName() {
+        return name;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    @Override
+    public String toString() {
+        return "JavaIndata{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
     }
 }

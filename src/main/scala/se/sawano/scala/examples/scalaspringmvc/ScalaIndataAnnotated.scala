@@ -14,25 +14,18 @@
  *    limitations under the License.
  */
 
-package se.sawano.scala.examples.scalaspringmvc;
+package se.sawano.scala.examples.scalaspringmvc
 
-import org.junit.Before;
-import org.junit.Test;
+import java.lang.Integer
+import javax.validation.constraints.{Min, NotNull}
+import reflect.BeanProperty
+import org.codehaus.jackson.annotate.JsonProperty
+import annotation.target.beanGetter
 
-import static org.junit.Assert.assertEquals;
-
-
-public class JavaScalaControllerTest {
-    private JavaScalaController controller;
-
-    @Before
-    public void setUp() throws Exception {
-        controller = new JavaScalaController();
-    }
-
-    @Test
-    public void pingShouldReturnPong() throws Exception {
-        String answer = controller.ping();
-        assertEquals("pong", answer);
-    }
-}
+/**
+ * If we are using the Jackson Scala module we can remove the @JsonProperty annotations.
+ * <p/>
+ * You could also use @field instead of @beanGetter for JSR-303 to work.
+ */
+case class ScalaIndataAnnotated(@JsonProperty("name") @BeanProperty @(NotNull@beanGetter) val name: String,
+  @JsonProperty("age") @BeanProperty @(Min@beanGetter)(1) val age: Integer)
